@@ -46,13 +46,13 @@ class Homelightautomation(MycroftSkill):
 
         if action.casefold() == "living room":
             GPIO.output(livingroom, GPIO.LOW)
-            self.speak.dialog("turning off living room")
+            self.speak_dialog("turning off living room")
         elif action.casefold() == "bedroom":
             GPIO.output(bedroom, GPIO.LOW)
-            self.speak.dialog("turning off bedroom")
+            self.speak_dialog("turning off bedroom")
         elif action.casefold() == "kitchen":
             GPIO.output(kitchen, GPIO.LOW)
-            self.speak.dialog("turning off kitchen")
+            self.speak_dialog("turning off kitchen")
         else:
             self.speak_dialog('negative.homelightautomation')
 

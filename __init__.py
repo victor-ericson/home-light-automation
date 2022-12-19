@@ -34,13 +34,18 @@ class Homelightautomation(MycroftSkill):
             else:
                 GPIO.output(livingroom, GPIO.HIGH)
                 self.speak_dialog("illuminating living room")
-
         elif action.casefold() == "bedroom":
-            GPIO.output(bedroom, GPIO.HIGH)
-            self.speak_dialog("illuminating bedroom")
+            if GPIO.input(bedroom):
+                self.speak_dialog("bedroom already on")
+            else:
+                GPIO.output(bedroom, GPIO.HIGH)
+                self.speak_dialog("illuminating bedroom")
         elif action.casefold() == "kitchen":
-            GPIO.output(kitchen, GPIO.HIGH)
-            self.speak_dialog("illuminating kitchen")
+            if GPIO.input(kitchen):
+                self.speak_dialog("kitchen already on")
+            else:
+                GPIO.output(kitchen, GPIO.HIGH)
+                self.speak_dialog("illuminating kitchen")
         else:
             self.speak_dialog('negative.homelightautomation')
 
@@ -56,11 +61,17 @@ class Homelightautomation(MycroftSkill):
             else:
                 self.speak_dialog("living room already off")
         elif action.casefold() == "bedroom":
-            GPIO.output(bedroom, GPIO.LOW)
-            self.speak_dialog("turning off bedroom")
+            if GPIO.input(bedroom):
+                GPIO.output(bedroom, GPIO.LOW)
+                self.speak_dialog("turning off bedroom")
+            else:
+                self.speak_dialog("bedroom already off")
         elif action.casefold() == "kitchen":
-            GPIO.output(kitchen, GPIO.LOW)
-            self.speak_dialog("turning off kitchen")
+            if GPIO.input(kitchen):
+                GPIO.output(kitchen, GPIO.LOW)
+                self.speak_dialog("turning off kitchen")
+            else:
+                self.speak_dialog("kitchen already off")
         else:
             self.speak_dialog('negative.homelightautomation')
 

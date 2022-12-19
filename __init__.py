@@ -1,9 +1,11 @@
 import time
 import RPi.GPIO as GPIO
+
 from mycroft import MycroftSkill, intent_file_handler
 
-livingroom_led = 17  # physical pin 11
-
+livingroom = 17  # physical pin 11
+bedroom = 18  # physical pin ...
+kitchen = 19  # physical pin ...
 
 class Homelightautomation(MycroftSkill):
     def __init__(self):
@@ -11,7 +13,9 @@ class Homelightautomation(MycroftSkill):
 
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(livingroom_led, GPIO.OUT)
+        GPIO.setup(livingroom, GPIO.OUT)
+        GPIO.setup(bedroom, GPIO.OUT)
+        GPIO.setup(kitchen, GPIO.OUT)
 
     # Called after skill loads
     def initialize(self):
@@ -19,35 +23,38 @@ class Homelightautomation(MycroftSkill):
 
     # called when skill is activated
     @intent_file_handler('turnon.intent')
-    def handle_homelightautomation(self, message):
-        self.speak_dialog('homelightautomation')
+    def handle_turnon(self, message):
 
         action = message.data.get('action')
 
-        if action.casefold() == "livingroom light":
-            GPIO.output(livingroom_led, GPIO.HIGH)
-        elif action.casefold() == "Bedroom light":
-            GPIO.output(bedroom_led, GPIO.HIGH)
-        elif action.casefold() == "Kitchen light":
-            GPIO.output(kitchen_led, GPIO.HIGH)
+        if action.casefold() == "living room":
+            GPIO.output(livingroom, GPIO.HIGH)
+            self.speak_dialog("illuminating living room")
+        elif action.casefold() == "Bedroom":
+            GPIO.output(bedroom, GPIO.HIGH)
+            self.speak_dialog("illuminating bedroom")
+        elif action.casefold() == "Kitchen":
+            GPIO.output(kitchen, GPIO.HIGH)
+            self.speak_dialog("illuminating kitchen")
         else:
-            self.log.info("No can do")
-            self.speak_dialog('negative.homelightautomation.dialog')
+            self.speak_dialog('negative.homelightautomation')
 
     @intent_file_handler('turnoff.intent')
-    def handle_homelightautomation(self, message):
-        self.speak_dialog('homelightautomation')
+    def handle_turnoff(self, message):
 
         action = message.data.get('action')
 
-        if action.casefold() == "livingroom light":
-            GPIO.output(livingroom_led, GPIO.LOW)
-        elif action.casefold() == "Bedroom light":
-            GPIO.output(bedroom_led, GPIO.LOW)
-        elif action.casefold() == "Kitchen light":
-            GPIO.output(kitchen_led, GPIO.LOW)
+        if action.casefold() == "living room":
+            GPIO.output(livingroom, GPIO.LOW)
+            self.speak.dialog("turning off living room")
+        elif action.casefold() == "Bedroom":
+            GPIO.output(bedroom, GPIO.LOW)
+            self.speak.dialog("turning off bedroom")
+        elif action.casefold() == "Kitchen":
+            GPIO.output(kitchen, GPIO.LOW)
+            self.speak.dialog("turning off kitchen")
         else:
-            self.log.info("No can do")
-            self.speak_dialog('negative.homelightautomation.dialog')
+            self.speak_dialog('negative.homelightautomation')
+
 def create_skill():
     return Homelightautomation()

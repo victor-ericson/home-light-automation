@@ -7,6 +7,7 @@ livingroom = 17  # physical pin 11
 bedroom = 18  # physical pin ...
 kitchen = 19  # physical pin ...
 
+
 class Homelightautomation(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
@@ -28,8 +29,12 @@ class Homelightautomation(MycroftSkill):
         action = message.data.get('action')
 
         if action.casefold() == "living room":
-            GPIO.output(livingroom, GPIO.HIGH)
-            self.speak_dialog("illuminating living room")
+            if GPIO.input(livingroom):
+                self.speak_dialog("living room already on")
+            else:
+                GPIO.output(livingroom, GPIO.HIGH)
+                self.speak_dialog("illuminating living room")
+
         elif action.casefold() == "bedroom":
             GPIO.output(bedroom, GPIO.HIGH)
             self.speak_dialog("illuminating bedroom")
@@ -45,8 +50,11 @@ class Homelightautomation(MycroftSkill):
         action = message.data.get('action')
 
         if action.casefold() == "living room":
-            GPIO.output(livingroom, GPIO.LOW)
-            self.speak_dialog("turning off living room")
+            if GPIO.input(livingroom):
+                GPIO.output(livingroom, GPIO.LOW)
+                self.speak_dialog("turning off living room")
+            else:
+                self.speak_dialog("living room already off")
         elif action.casefold() == "bedroom":
             GPIO.output(bedroom, GPIO.LOW)
             self.speak_dialog("turning off bedroom")
@@ -55,6 +63,7 @@ class Homelightautomation(MycroftSkill):
             self.speak_dialog("turning off kitchen")
         else:
             self.speak_dialog('negative.homelightautomation')
+
 
 def create_skill():
     return Homelightautomation()

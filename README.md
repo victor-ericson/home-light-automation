@@ -2,15 +2,11 @@
 Controls lights
 
 ## About
-This skill turns on and off lights in your home
+This skill turns on and off lights, as well as checks status and dims/brightens them
 
 ## Examples
-* "Livingroom light on"
-* "Livingroom light off"
-* "Bedroom light on"
-* "Bedroom light off"
-* "Kitchen light on"
-* "Kitchen light off"
+* "Lumos living room"
+* "disspate living room"
 
 ## Credits
 servername

@@ -46,6 +46,14 @@ class Homelightautomation(MycroftSkill):
             else:
                 GPIO.output(kitchen, GPIO.HIGH)
                 self.speak_dialog("illuminating kitchen")
+        elif action.casefold() == "all lights":
+            if GPIO.input(livingroom) and GPIO.input(bedroom) and GPIO.input(kitchen):
+                self.speak_dialog("all lights are already on")
+            else:
+                GPIO.output(livingroom, GPIO.HIGH)
+                GPIO.output(bedroom, GPIO.HIGH)
+                GPIO.output(kitchen, GPIO.HIGH)
+                self.speak_dialog("illuminating all lights")
         else:
             self.speak_dialog('negative.homelightautomation')
 
@@ -72,6 +80,14 @@ class Homelightautomation(MycroftSkill):
                 self.speak_dialog("turning off kitchen")
             else:
                 self.speak_dialog("kitchen already off")
+        elif action.casefold() == "all lights":
+            if GPIO.input(livingroom) or GPIO.input(bedroom) or GPIO.input(kitchen):
+                GPIO.output(livingroom, GPIO.LOW)
+                GPIO.output(bedroom, GPIO.LOW)
+                GPIO.output(kitchen, GPIO.LOW)
+                self.speak_dialog("turning off all lights")
+            else:
+                self.speak_dialog("all lights are already off")
         else:
             self.speak_dialog('negative.homelightautomation')
 

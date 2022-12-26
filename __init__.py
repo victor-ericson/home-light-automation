@@ -90,6 +90,28 @@ class Homelightautomation(MycroftSkill):
                 self.speak_dialog("all lights are already off")
         else:
             self.speak_dialog('negative.homelightautomation')
+    
+    @intent_file_handler('status.intent')
+    def check_status(self, message):
+        action = message.data.get('action')
+    
+        if action.casefold() == "living room":
+            if GPIO.input(livingroom):
+                self.speak_dialog("living room is on")
+            else:
+                self.speak_dialog("living room is off")
+        elif action.casefold() == "bedroom":
+            if GPIO.input(bedroom):
+                self.speak_dialog("bedroom is on")
+            else:
+                self.speak_dialog("bedroom is off")
+        elif action.casefold() == "kitchen":
+            if GPIO.input(kitchen):
+                self.speak_dialog("kitchen is on")
+            else:
+                self.speak_dialog("kitchen is off")
+        else:
+            self.speak_dialog('negative.homelightautomation')
 
 
 def create_skill():

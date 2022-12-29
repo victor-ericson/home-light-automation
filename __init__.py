@@ -125,7 +125,26 @@ class Homelightautomation(MycroftSkill):
                 self.speak_dialog("kitchen is off")               
         else:
             self.speak_dialog('negative.homelightautomation')
-
-
+    
+    @intent_file_handler('dimming.intent')
+    def handle_dimming(self, message):
+        room = message.data.get('room')
+        dimming = message.data.get('dimming')
+        if room.casefold() == "living room":
+            pin = livingroom
+        elif room.casefold() == "bedroom":
+            pin = bedroom
+        elif room.casefold() == "kitchen":
+            pin = kitchen
+        else:
+            self.speak_dialog('negative.homelightautomation')
+            return
+        
+        # Set the pin to PWM mode and set the frequency to 100 Hz
+        pwm = GPIO.PWM(pin, 100)
+        # Start PWM with a duty cycle of 0%
+        pwm.start(0)
+        pwm.ChangeDutyCycle(dimming)
+            
 def create_skill():
     return Homelightautomation()

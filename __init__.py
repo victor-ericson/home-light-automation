@@ -90,11 +90,11 @@ class Homelightautomation(MycroftSkill):
                 self.speak_dialog("all lights are already off")
         else:
             self.speak_dialog('negative.homelightautomation')
-    
+
     @intent_file_handler('status.intent')
     def check_status(self, message):
         action = message.data.get('action')
-    
+
         if action.casefold() == "living room":
             if GPIO.input(livingroom):
                 self.speak_dialog("living room is on")
@@ -122,11 +122,11 @@ class Homelightautomation(MycroftSkill):
             if GPIO.input(kitchen):
                 self.speak_dialog("kitchen is on")
             else:
-                self.speak_dialog("kitchen is off")               
+                self.speak_dialog("kitchen is off")
         else:
             self.speak_dialog('negative.homelightautomation')
-    
-    @intent_file_handler('dimming.intent')
+
+    @intent_file_handler('dimmer.intent')
     def handle_dimming(self, message):
         room = message.data.get('room')
         dimming = message.data.get('dimming')
@@ -139,12 +139,13 @@ class Homelightautomation(MycroftSkill):
         else:
             self.speak_dialog('negative.homelightautomation')
             return
-        
+
         # Set the pin to PWM mode and set the frequency to 100 Hz
         pwm = GPIO.PWM(pin, 100)
         # Start PWM with a duty cycle of 0%
         pwm.start(0)
         pwm.ChangeDutyCycle(dimming)
-            
+
+
 def create_skill():
     return Homelightautomation()

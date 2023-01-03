@@ -135,14 +135,28 @@ class Homelightautomation(MycroftSkill):
 
     @intent_file_handler('dimmer.intent')
     def handle_dimming(self, message):
-        action = message.data.get('room')
-        dimming = message.data.get('dimming')
-        if room.casefold() == "living room":
-            pin = livingroom
-        elif room.casefold() == "bedroom":
-            pin = bedroom
-        elif room.casefold() == "kitchen":
-            pin = kitchen
+        action = message.data.get('action')
+        if action.casefold() == "living room":
+            if pwm_livingroom.duty_cycle == 0
+                self.speak_dialog("living room already off")
+                return
+            pwm_livingroom.ChangeDutyCycle(pwm_livingroom.duty_cycle - 20)
+            if(pwm_livingroom.duty_cycle == 0)
+                self.speak_dialog("turning off living room")
+        elif action.casefold() == "bedroom":
+            if pwm_bedroom.duty_cycle == 0
+                self.speak_dialog("bedroom already off")
+                return
+            pwm_bedroom.ChangeDutyCycle(pwm_bedroom.duty_cycle - 20)
+            if(pwm_bedroom.duty_cycle == 0)
+                self.speak_dialog("turning off bedroom")
+        elif action.casefold() == "kitchen":
+            if pwm_kitchen.duty_cycle == 0
+                self.speak_dialog("kitchen already off")
+                return             
+            pwm_kitchen.ChangeDutyCycle(pwm_kitchen.duty_cycle - 20)
+            if(pwm_kitchen.duty_cycle == 0)
+                self.speak_dialog("turning off kitchen")
         else:
             self.speak_dialog('negative.homelightautomation')
             return

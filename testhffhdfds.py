@@ -103,30 +103,30 @@ class Homelightautomation(MycroftSkill):
         action = message.data.get('action')
 
         if action.casefold() == "living room":
-            if GPIO.input(livingroom):
+            if pwm_livingroom.duty_cycle > 0:
                 self.speak_dialog("living room is on")
             else:
                 self.speak_dialog("living room is off")
         elif action.casefold() == "bedroom":
-            if GPIO.input(bedroom):
+            if pwm_bedroom.duty_cycle > 0:
                 self.speak_dialog("bedroom is on")
             else:
                 self.speak_dialog("bedroom is off")
         elif action.casefold() == "kitchen":
-            if GPIO.input(kitchen):
+            if pwm_kitchen.duty_cycle > 0:
                 self.speak_dialog("kitchen is on")
             else:
                 self.speak_dialog("kitchen is off")
         elif action.casefold() == "all":
-            if GPIO.input(livingroom):
+            if pwm_livingroom.duty_cycle > 0:
                 self.speak_dialog("living room is on")
             else:
                 self.speak_dialog("living room is off")
-            if GPIO.input(bedroom):
+            if pwm_bedroom.duty_cycle > 0:
                 self.speak_dialog("bedroom is on")
             else:
                 self.speak_dialog("bedroom is off")
-            if GPIO.input(kitchen):
+            if pwm_kitchen.duty_cycle > 0:
                 self.speak_dialog("kitchen is on")
             else:
                 self.speak_dialog("kitchen is off")
@@ -135,7 +135,7 @@ class Homelightautomation(MycroftSkill):
 
     @intent_file_handler('dimmer.intent')
     def handle_dimming(self, message):
-        room = message.data.get('room')
+        action = message.data.get('room')
         dimming = message.data.get('dimming')
         if room.casefold() == "living room":
             pin = livingroom
@@ -146,12 +146,6 @@ class Homelightautomation(MycroftSkill):
         else:
             self.speak_dialog('negative.homelightautomation')
             return
-
-        # Set the pin to PWM mode and set the frequency to 100 Hz
-        pwm = GPIO.PWM(pin, 100)
-        # Start PWM with a duty cycle of 0%
-        pwm.start(0)
-        pwm.ChangeDutyCycle(dimming)
 
 
 def create_skill():

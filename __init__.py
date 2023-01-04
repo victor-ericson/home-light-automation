@@ -11,7 +11,9 @@ kitchen = 19  # physical pin 35
 class Homelightautomation(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
-
+        global pwm_bedroom
+        global pwm_livingroom
+        global pwm_kitchen
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(livingroom, GPIO.OUT)

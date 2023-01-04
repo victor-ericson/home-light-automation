@@ -6,7 +6,9 @@ from mycroft import MycroftSkill, intent_file_handler
 livingroom = 17  # physical pin 11
 bedroom = 18  # physical pin 12
 kitchen = 19  # physical pin 35
-
+pwm_bedroom_get_duty_cycle = 0
+pwm_livingroom_get_duty_cycle = 0
+pwm_kitchen_get_duty_cycle = 0
 
 class Homelightautomation(MycroftSkill):
     def __init__(self):
@@ -14,9 +16,6 @@ class Homelightautomation(MycroftSkill):
         global pwm_bedroom
         global pwm_livingroom
         global pwm_kitchen
-        global pwm_bedroom_get_duty_cycle
-        global pwm_livingroom_get_duty_cycle
-        global pwm_kitchen_get_duty_cycle
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(livingroom, GPIO.OUT)

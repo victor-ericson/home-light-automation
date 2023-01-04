@@ -14,9 +14,7 @@ class Homelightautomation(MycroftSkill):
         global pwm_bedroom
         global pwm_livingroom
         global pwm_kitchen
-        global pwm_bedroom_get_duty_cycle = 0
-        global pwm_livingroom_get_duty_cycle = 0
-        global pwm_kitchen_get_duty_cycle = 0
+
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(livingroom, GPIO.OUT)
@@ -28,6 +26,9 @@ class Homelightautomation(MycroftSkill):
         pwm_bedroom.start(0)
         pwm_livingroom.start(0)
         pwm_kitchen.start(0)
+        pwm_bedroom_get_duty_cycle = 0
+        pwm_livingroom_get_duty_cycle = 0
+        pwm_kitchen_get_duty_cycle = 0
 
 
     # Called after skill loads

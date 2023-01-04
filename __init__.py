@@ -38,25 +38,25 @@ class Homelightautomation(MycroftSkill):
         action = message.data.get('action')
 
         if action.casefold() == "living room":
-            if pwm_livingroom.duty_cycle == 100:
+            if pwm_livingroom.get_duty_cycle() == 100:
                 self.speak_dialog("living room already on")
             else:
                 pwm_livingroom.ChangeDutyCycle(100) 
                 self.speak_dialog("illuminating living room")
         elif action.casefold() == "bedroom":
-            if pwm_bedroom.duty_cycle == 100:
+            if pwm_bedroom.get_duty_cycle() == 100:
                 self.speak_dialog("bedroom already on")
             else:
                 pwm_bedroom.ChangeDutyCycle(100)
                 self.speak_dialog("illuminating bedroom")
         elif action.casefold() == "kitchen":
-            if pwm_kitchen.duty_cycle == 100:
+            if pwm_kitchen.get_duty_cycle() == 100:
                 self.speak_dialog("kitchen already on")
             else:
                 pwm_kitchen.ChangeDutyCycle(100)
                 self.speak_dialog("illuminating kitchen")
         elif action.casefold() == "all lights":
-            if pwm_livingroom.duty_cycle == 100 and pwm_bedroom.duty_cycle == 100 and pwm_kitchen.duty_cycle == 100:
+            if pwm_livingroom.get_duty_cycle() == 100 and pwm_bedroom.get_duty_cycle() == 100 and pwm_kitchen.get_duty_cycle() == 100:
                 self.speak_dialog("all lights are already on")
             else:
                 pwm_livingroom.ChangeDutyCycle(100)
@@ -72,25 +72,25 @@ class Homelightautomation(MycroftSkill):
         action = message.data.get('action')
 
         if action.casefold() == "living room":
-            if pwm_livingroom.duty_cycle > 0:
+            if pwm_livingroom.get_duty_cycle() > 0:
                 pwm_livingroom.ChangeDutyCycle(0)
                 self.speak_dialog("turning off living room")
             else:
                 self.speak_dialog("living room already off")
         elif action.casefold() == "bedroom":
-            if pwm_bedroom.duty_cycle > 0:
+            if pwm_bedroom.get_duty_cycle() > 0:
                 pwm_bedroom.ChangeDutyCycle(0)
                 self.speak_dialog("turning off bedroom")
             else:
                 self.speak_dialog("bedroom already off")
         elif action.casefold() == "kitchen":
-            if pwm_kitchen.duty_cycle > 0:
+            if pwm_kitchen.get_duty_cycle() > 0:
                 pwm_kitchen.ChangeDutyCycle(0)
                 self.speak_dialog("turning off kitchen")
             else:
                 self.speak_dialog("kitchen already off")
         elif action.casefold() == "all lights":
-            if pwm_livingroom.duty_cycle > 0 or pwm_bedroom.duty_cycle > 0 or pwm_kitchen.duty_cycle > 0:
+            if pwm_livingroom.get_duty_cycle() > 0 or pwm_bedroom.get_duty_cycle() > 0 or pwm_kitchen.get_duty_cycle() > 0:
                 pwm_livingroom.ChangeDutyCycle(0)
                 pwm_bedroom.ChangeDutyCycle(0)
                 pwm_kitchen.ChangeDutyCycle(0)
@@ -105,30 +105,30 @@ class Homelightautomation(MycroftSkill):
         action = message.data.get('action')
 
         if action.casefold() == "living room":
-            if pwm_livingroom.duty_cycle > 0:
+            if pwm_livingroom.get_duty_cycle() > 0:
                 self.speak_dialog("living room is on")
             else:
                 self.speak_dialog("living room is off")
         elif action.casefold() == "bedroom":
-            if pwm_bedroom.duty_cycle > 0:
+            if pwm_bedroom.get_duty_cycle() > 0:
                 self.speak_dialog("bedroom is on")
             else:
                 self.speak_dialog("bedroom is off")
         elif action.casefold() == "kitchen":
-            if pwm_kitchen.duty_cycle > 0:
+            if pwm_kitchen.get_duty_cycle() > 0:
                 self.speak_dialog("kitchen is on")
             else:
                 self.speak_dialog("kitchen is off")
         elif action.casefold() == "all":
-            if pwm_livingroom.duty_cycle > 0:
+            if pwm_livingroom.get_duty_cycle() > 0:
                 self.speak_dialog("living room is on")
             else:
                 self.speak_dialog("living room is off")
-            if pwm_bedroom.duty_cycle > 0:
+            if pwm_bedroom.get_duty_cycle() > 0:
                 self.speak_dialog("bedroom is on")
             else:
                 self.speak_dialog("bedroom is off")
-            if pwm_kitchen.duty_cycle > 0:
+            if pwm_kitchen.get_duty_cycle() > 0:
                 self.speak_dialog("kitchen is on")
             else:
                 self.speak_dialog("kitchen is off")
@@ -139,25 +139,25 @@ class Homelightautomation(MycroftSkill):
     def handle_dimming(self, message):
         action = message.data.get('action')
         if action.casefold() == "living room":
-            if pwm_livingroom.duty_cycle == 0:
+            if pwm_livingroom.get_duty_cycle() == 0:
                 self.speak_dialog("living room already off")
                 return
-            pwm_livingroom.ChangeDutyCycle(pwm_livingroom.duty_cycle - 20)
-            if(pwm_livingroom.duty_cycle == 0):
+            pwm_livingroom.ChangeDutyCycle(pwm_livingroom.get_duty_cycle() - 20)
+            if(pwm_livingroom.get_duty_cycle() == 0):
                 self.speak_dialog("turning off living room")
         elif action.casefold() == "bedroom":
-            if pwm_bedroom.duty_cycle == 0:
+            if pwm_bedroom.get_duty_cycle() == 0:
                 self.speak_dialog("bedroom already off")
                 return
-            pwm_bedroom.ChangeDutyCycle(pwm_bedroom.duty_cycle - 20)
-            if(pwm_bedroom.duty_cycle == 0):
+            pwm_bedroom.ChangeDutyCycle(pwm_bedroom.get_duty_cycle() - 20)
+            if(pwm_bedroom.get_duty_cycle() == 0):
                 self.speak_dialog("turning off bedroom")
         elif action.casefold() == "kitchen":
-            if pwm_kitchen.duty_cycle == 0:
+            if pwm_kitchen.get_duty_cycle() == 0:
                 self.speak_dialog("kitchen already off")
                 return             
-            pwm_kitchen.ChangeDutyCycle(pwm_kitchen.duty_cycle - 20)
-            if(pwm_kitchen.duty_cycle == 0):
+            pwm_kitchen.ChangeDutyCycle(pwm_kitchen.get_duty_cycle() - 20)
+            if(pwm_kitchen.get_duty_cycle() == 0):
                 self.speak_dialog("turning off kitchen")
         else:
             self.speak_dialog('negative.homelightautomation')

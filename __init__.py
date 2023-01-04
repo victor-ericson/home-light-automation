@@ -10,10 +10,6 @@ kitchen = 19  # physical pin 35
 
 class Homelightautomation(MycroftSkill):
     def __init__(self):
-        # self.pwm_bedroom_get_duty_cycle = 0
-        # self.pwm_livingroom_get_duty_cycle = 0
-        # self.pwm_kitchen_get_duty_cycle = 0
-
         MycroftSkill.__init__(self)
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
@@ -160,21 +156,24 @@ class Homelightautomation(MycroftSkill):
             if self.pwm_livingroom_get_duty_cycle == 0:
                 self.speak_dialog("living room already off")
                 return
-            self.pwm_livingroom.ChangeDutyCycle(self.pwm_livingroom_get_duty_cycle - 20)
+            self.pwm_livingroom_get_duty_cycle -= 20
+            self.pwm_livingroom.ChangeDutyCycle(self.pwm_livingroom_get_duty_cycle)
             if(self.pwm_livingroom_get_duty_cycle == 0):
                 self.speak_dialog("turning off living room")
         elif action.casefold() == "bedroom":
             if self.pwm_bedroom_get_duty_cycle == 0:
                 self.speak_dialog("bedroom already off")
                 return
-            self.pwm_bedroom.ChangeDutyCycle(self.pwm_bedroom_get_duty_cycle - 20)
+            self.pwm_bedroom_get_duty_cycle -= 20
+            self.pwm_bedroom.ChangeDutyCycle(self.pwm_bedroom_get_duty_cycle)
             if(self.pwm_bedroom_get_duty_cycle == 0):
                 self.speak_dialog("turning off bedroom")
         elif action.casefold() == "kitchen":
             if self.pwm_kitchen_get_duty_cycle == 0:
                 self.speak_dialog("kitchen already off")
-                return             
-            self.pwm_kitchen.ChangeDutyCycle(self.pwm_kitchen_get_duty_cycle - 20)
+                return
+            self.pwm_kitchen_get_duty_cycle -= 20
+            self.pwm_kitchen.ChangeDutyCycle(self.pwm_kitchen_get_duty_cycle)
             if(self.pwm_kitchen_get_duty_cycle == 0):
                 self.speak_dialog("turning off kitchen")
         else:

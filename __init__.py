@@ -25,7 +25,9 @@ class Homelightautomation(MycroftSkill):
         pwm_bedroom.start(0)
         pwm_livingroom.start(0)
         pwm_kitchen.start(0)
-        
+        pwm_bedroom_get_duty_cycle = 0
+        pwm_livingroom_get_duty_cycle = 0
+        pwm_kitchen_get_duty_cycle = 0
 
     # Called after skill loads
     def initialize(self):
@@ -38,30 +40,36 @@ class Homelightautomation(MycroftSkill):
         action = message.data.get('action')
 
         if action.casefold() == "living room":
-            if pwm_livingroom.get_duty_cycle() == 100:
+            if pwm_livingroom_get_duty_cycle == 100:
                 self.speak_dialog("living room already on")
             else:
-                pwm_livingroom.ChangeDutyCycle(100) 
+                pwm_livingroom.ChangeDutyCycle(100)
+                pwm_livingroom_get_duty_cycle = 100
                 self.speak_dialog("illuminating living room")
         elif action.casefold() == "bedroom":
-            if pwm_bedroom.get_duty_cycle() == 100:
+            if pwm_bedroom_get_duty_cycle == 100:
                 self.speak_dialog("bedroom already on")
             else:
                 pwm_bedroom.ChangeDutyCycle(100)
+                pwm_bedroom_get_duty_cycle = 100
                 self.speak_dialog("illuminating bedroom")
         elif action.casefold() == "kitchen":
-            if pwm_kitchen.get_duty_cycle() == 100:
+            if pwm_kitchen_get_duty_cycle == 100:
                 self.speak_dialog("kitchen already on")
             else:
                 pwm_kitchen.ChangeDutyCycle(100)
+                pwm_kitchen_get_duty_cycle = 100
                 self.speak_dialog("illuminating kitchen")
         elif action.casefold() == "all lights":
-            if pwm_livingroom.get_duty_cycle() == 100 and pwm_bedroom.get_duty_cycle() == 100 and pwm_kitchen.get_duty_cycle() == 100:
+            if pwm_livingroom_get_duty_cycle == 100 and pwm_bedroom_get_duty_cycle == 100 and pwm_kitchen_get_duty_cycle == 100:
                 self.speak_dialog("all lights are already on")
             else:
                 pwm_livingroom.ChangeDutyCycle(100)
                 pwm_bedroom.ChangeDutyCycle(100)
                 pwm_kitchen.ChangeDutyCycle(100)
+                pwm_livingroom_get_duty_cycle = 100
+                pwm_bedroom_get_duty_cycle = 100 
+                pwm_kitchen_get_duty_cycle = 100
                 self.speak_dialog("illuminating all lights")
         else:
             self.speak_dialog('negative.homelightautomation')

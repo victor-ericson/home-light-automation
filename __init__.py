@@ -26,9 +26,6 @@ class Homelightautomation(MycroftSkill):
         self.pwm_livingroom_get_duty_cycle = 0
         self.pwm_kitchen_get_duty_cycle = 0
 
-
-
-
     # Called after skill loads
     def initialize(self):
         self.log.info("Skill loaded")
@@ -158,7 +155,7 @@ class Homelightautomation(MycroftSkill):
                 return
             self.pwm_livingroom_get_duty_cycle -= 20
             self.pwm_livingroom.ChangeDutyCycle(self.pwm_livingroom_get_duty_cycle)
-            if(self.pwm_livingroom_get_duty_cycle == 0):
+            if self.pwm_livingroom_get_duty_cycle == 0:
                 self.speak_dialog("turning off living room")
         elif action.casefold() == "bedroom":
             if self.pwm_bedroom_get_duty_cycle == 0:
@@ -166,7 +163,7 @@ class Homelightautomation(MycroftSkill):
                 return
             self.pwm_bedroom_get_duty_cycle -= 20
             self.pwm_bedroom.ChangeDutyCycle(self.pwm_bedroom_get_duty_cycle)
-            if(self.pwm_bedroom_get_duty_cycle == 0):
+            if self.pwm_bedroom_get_duty_cycle == 0:
                 self.speak_dialog("turning off bedroom")
         elif action.casefold() == "kitchen":
             if self.pwm_kitchen_get_duty_cycle == 0:
@@ -174,7 +171,7 @@ class Homelightautomation(MycroftSkill):
                 return
             self.pwm_kitchen_get_duty_cycle -= 20
             self.pwm_kitchen.ChangeDutyCycle(self.pwm_kitchen_get_duty_cycle)
-            if(self.pwm_kitchen_get_duty_cycle == 0):
+            if self.pwm_kitchen_get_duty_cycle == 0:
                 self.speak_dialog("turning off kitchen")
         else:
             self.speak_dialog('negative.homelightautomation')

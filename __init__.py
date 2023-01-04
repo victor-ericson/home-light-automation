@@ -6,7 +6,9 @@ from mycroft import MycroftSkill, intent_file_handler
 livingroom = 17  # physical pin 11
 bedroom = 18  # physical pin 12
 kitchen = 19  # physical pin 35
-
+pwm_bedroom_get_duty_cycle = 0
+pwm_livingroom_get_duty_cycle = 0
+pwm_kitchen_get_duty_cycle = 0
 
 class Homelightautomation(MycroftSkill):
     def __init__(self):
@@ -26,9 +28,7 @@ class Homelightautomation(MycroftSkill):
         pwm_bedroom.start(0)
         pwm_livingroom.start(0)
         pwm_kitchen.start(0)
-        pwm_bedroom_get_duty_cycle = 0
-        pwm_livingroom_get_duty_cycle = 0
-        pwm_kitchen_get_duty_cycle = 0
+
 
 
     # Called after skill loads

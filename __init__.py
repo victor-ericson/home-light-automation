@@ -176,7 +176,38 @@ class Homelightautomation(MycroftSkill):
         else:
             self.speak_dialog('negative.homelightautomation')
             return
-
-
+    
+    @intent_file_handler('brighten.intent')
+    def handle_brighten(self, message):
+        action = message.data.get('action')
+        if action.casefold() == "living room":
+            if self.pwm_livingroom_get_duty_cycle == 100:
+                self.speak_dialog("living room already fully on")
+                return
+            self.pwm_livingroom_get_duty_cycle += 20
+            self.pwm_livingroom.ChangeDutyCycle(self.pwm_livingroom_get_duty_cycle)
+            if self.pwm_livingroom_get_duty_cycle == 100:
+                self.speak_dialog("living room is now fully on")
+        elif action.casefold() == "bedroom":
+            if self.pwm_bedroom_get_duty_cycle == 100:
+                self.speak_dialog("bedroom already fully on")
+                return
+            self.pwm_bedroom_get_duty_cycle += 20
+            self.pwm_bedroom.ChangeDutyCycle(self.pwm_bedroom_get_duty_cycle)
+            if self.pwm_bedroom_get_duty_cycle == 100:
+                self.speak_dialog("bedroom is now fully on")
+        elif action.casefold() == "kitchen":
+            if self.pwm_kitchen_get_duty_cycle == 100:
+                self.speak_dialog("kitchen already fully on")
+                return
+            self.pwm_kitchen_get_duty_cycle += 20
+            self.pwm_kitchen.ChangeDutyCycle(self.pwm_kitchen_get_duty_cycle)
+            if self.pwm_kitchen_get_duty_cycle == 100:
+                self.speak_dialog("kitchen is now fully on")
+        else:
+            self.speak_dialog('negative.homelightautomation')
+            return
+        
+        
 def create_skill():
     return Homelightautomation()

@@ -7,6 +7,9 @@ This skill turns on and off lights, as well as checks status and dims/brightens 
 ## Examples
 * "Lumos living room"
 * "disspate living room"
+* "status all"
+* "dim kitchen"
+* "brighten bedroom"
 
 ## Credits
 servername
